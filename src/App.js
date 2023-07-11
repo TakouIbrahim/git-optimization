@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import {useState} from "react";
+import Checkbox from './component/Checkbox';
+import Todo from './component/Todo';
+import Form from './component/Form';
 import './App.css';
 
 function App() {
+  const [todos, setTodos] = useState([]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Tasks</h1>
+      < Form 
+      addTodo={(todo) =>{
+        setTodos((prev) => [...prev, todo]);
+      }} />
+      <div className="" >
+        {todos.map((todo, i) =>(
+          <Todo onDelete={ () =>{
+            setTodos((prev) =>{
+              return prev.filter((_, y) =>i !== y);
+            })
+          } } key={i}>{todo}</Todo>
+        ))}
+
+      </div>
     </div>
   );
 }
+
+
+
+
+
 
 export default App;
